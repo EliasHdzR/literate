@@ -16,18 +16,35 @@ class TemplateController extends Controller
 
     public function store(Request $request) {
         $validated = $request->validate([
-            'name' => 'required',
-            'header_logo_url' => 'required',
-            'place' => 'required',
-            'greeting' => 'required',
-            'farewell' => 'required',
-            'footer_text' => 'required',
-            'footer_logo_url' => 'required',
+            'name' => 'nullable',
+            'header_logo_url' => ['sometimes','nullable','mimes:png.jpg,jpge','max:2048'],
+            'place' => 'nullable',
+            'greeting' => 'nullable',
+            'farewell' => 'nullable',
+            'footer_text' => 'nullable',
+            'footer_logo_url' => ['sometimes','nullable','mimes:png.jpg,jpge','max:2048'],
         ]);
 
         Template::create($validated);
 
         return redirect()->route('templates.index')->with('success', 'Template agregado exitosamente');
+    }
+
+    public function update(Request $request, Template $template) {
+    
+        $validated = $request->validate([
+            'name' => 'nullable',
+            'header_logo_url' => ['sometimes','nullable','mimes:png.jpg,jpge','max:2048'],
+            'place' => 'nullable',
+            'greeting' => 'nullable',
+            'farewell' => 'nullable',
+            'footer_text' => 'nullable',
+            'footer_logo_url' => ['sometimes','nullable','mimes:png.jpg,jpge','max:2048'],
+        ]);
+    
+        $template->update($validated);
+    
+        return redirect()->route('templates.index')->with('status', 'plantilla modificada exitosamente');
     }
 
     public function edit(Template $template) {

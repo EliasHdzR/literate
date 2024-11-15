@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Template;
+use App\Http\Controllers\TemplatesController;
+
 
 class DashboardController extends Controller
 {
@@ -21,6 +24,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('dashboard');
+        $templates = Template::all();
+        return view('dashboard', compact('templates'));
     }
 }
