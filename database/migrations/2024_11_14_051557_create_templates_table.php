@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('header_logo_url');
-            $table->string('place');
-            $table->string('greeting');
-            $table->string('farewell');
-            $table->string('footer_text');
-            $table->string('footer_logo_url');
+            $table->string('name')->nullable();
+            $table->string('header_logo_url')->nullable();
+            $table->string('place')->nullable();
+            $table->string('greeting')->nullable();
+            $table->string('farewell')->nullable();
+            $table->string('footer_text')->nullable();
+            $table->string('footer_logo_url')->nullable();
             $table->timestamps();
         });
     }
