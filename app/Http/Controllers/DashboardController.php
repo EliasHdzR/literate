@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Template;
 use App\Http\Controllers\TemplatesController;
+use Illuminate\Routing\Controller as BaseController;
 
 
-class DashboardController extends Controller
+class DashboardController extends BaseController
 {
     /**
      * Create a new controller instance.
