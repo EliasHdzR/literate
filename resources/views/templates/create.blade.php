@@ -14,6 +14,7 @@
                 <!-- formulario -->
                 <form method="POST" action="{{ route('templates.store') }}" class="shadow-sm bg-white p-4 rounded">
                     @csrf
+                    @method('PATCH')
                     <!-- nombre almacen -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre de la plantilla</label>
