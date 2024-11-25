@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,7 +23,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{template}', [TemplateController::class, 'destroy'])->name('templates.destroy');
     });
 
-    
+    Route::controller(DocumentController::class)->group(function (){
+        Route::get('/documentos', 'index')->name('documents.index'); 
+        Route::get('/documentos/create', 'create')->name('documents.create'); 
+        Route::post('/documentos', 'store')->name('documents.store'); 
+        Route::get('/documentos/{document}/edit', 'edit')->name('documents.edit');
+        Route::patch('/documentos/{document}', 'update')->name('documents.update');
+        Route::delete('/documentos/{document}', 'destroy')->name('documents.destroy');
+    });
     
 });
 
