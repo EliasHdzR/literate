@@ -13,7 +13,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::middleware('auth')->group(function () {
 
-    Route::group('/plantillas', function(){
+    Route::group(['prefix' => '/plantillas'], function(){
         Route::get('/', [TemplateController::class, 'index'])->name('templates.index');
         Route::get('/create', [TemplateController::class, 'create'])->name('templates.create');
         Route::post('/', [TemplateController::class, 'store'])->name('templates.store');
@@ -23,13 +23,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{template}', [TemplateController::class, 'destroy'])->name('templates.destroy');
     });
 
-    Route::controller(DocumentController::class)->group(function (){
-        Route::get('/documentos', 'index')->name('documents.index'); 
-        Route::get('/documentos/create', 'create')->name('documents.create'); 
-        Route::post('/documentos', 'store')->name('documents.store'); 
-        Route::get('/documentos/{document}/edit', 'edit')->name('documents.edit');
-        Route::patch('/documentos/{document}', 'update')->name('documents.update');
-        Route::delete('/documentos/{document}', 'destroy')->name('documents.destroy');
+    Route::group(['prefix' => '/documentos'], function (){
+        Route::get('/', [DocumentController::class, 'index'])->name('documents.index'); 
+        Route::get('/create', [DocumentController::class, 'create'])->name('documents.create'); 
+        Route::post('/', [DocumentController::class, 'store'])->name('documents.store'); 
+        Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+        Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
+        Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
     });
     
 });
