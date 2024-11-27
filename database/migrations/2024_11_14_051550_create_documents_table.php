@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('issuer_name');
             $table->string('issuer_position');
             $table->string('footer_text')->nullable();
-            $table->string('footer_logo_url')-nullable();
+            $table->string('footer_logo_url')->nullable();
             $table->date('signature_limit_date')->nullable();
             $table->timestamps();
         });

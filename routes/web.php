@@ -6,7 +6,7 @@ use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -24,14 +24,14 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['prefix' => '/documentos'], function (){
-        Route::get('/', [DocumentController::class, 'index'])->name('documents.index'); 
-        Route::get('/create', [DocumentController::class, 'create'])->name('documents.create'); 
-        Route::post('/', [DocumentController::class, 'store'])->name('documents.store'); 
+        Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
+        Route::get('/create', [DocumentController::class, 'create'])->name('documents.create');
+        Route::post('/', [DocumentController::class, 'store'])->name('documents.store');
         Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
         Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
         Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
     });
-    
+
 });
 
 require __DIR__.'/auth.php';
