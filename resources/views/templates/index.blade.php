@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Plantillas') 
+@section('title', 'Plantillas')
 
 @section('content')
  <div class="col px-5">
@@ -8,21 +8,6 @@
     <div class="row align-items-center mb-4">
         <div class="col">
             <div class="fs-2 fw-semibold">{{ __('Plantillas') }}</div>
-        </div>
-        <!-- buscador -->
-        <div class="col-md-4 p-0">
-            <div class="d-flex p-0 gap-2">
-                <form class="d-flex position-relative w-100" role="search">
-                    <input class="form-control border-secondary px-4 p-2 bg-white border-0 shadow-sm" 
-                        type="search" placeholder="Busca alguna plantilla" aria-label="Search">
-                    <button class="btn position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent me-2" type="button">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.7666" cy="11.7666" r="8.98856" stroke="#1C1D22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M18.0183 18.4851L21.5423 22" stroke="#1C1D22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </form>
-            </div>
         </div>
         <!-- add plantilla -->
         <div class="col-2">
@@ -42,7 +27,7 @@
                         <div class="card shadow-sm bg-white border-0 h-100">
                             <div class="card-body d-flex flex-column p-0">
                                 <img src="{{ asset('img/logoTamaulipas.png') }}" alt="" class="rounded-top-3">
-                            </div> 
+                            </div>
                             <div class="card-body d-flex flex-column">
                                 <h1 class="fs-5 fw-bold">{{ $template->name }}</h1>
                                 <small class="fs-6 fw-medium text-truncate">
@@ -66,7 +51,7 @@
                                             <path d="M17.7569 5.69963H3.62518" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M15.0339 5.69974C14.3797 5.69974 13.8164 5.23724 13.688 4.5964L13.4855 3.58307C13.3605 3.11557 12.9372 2.79224 12.4547 2.79224H8.92719C8.44469 2.79224 8.02136 3.11557 7.89636 3.58307L7.69386 4.5964C7.56552 5.23724 7.00219 5.69974 6.34802 5.69974" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                    </a>                              
+                                    </a>
                                     <!-- el modal aka formulario delete plantilla -->
                                     <div class="modal fade" id="eliminar-{{ $template->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -79,9 +64,9 @@
                                                         <p class="">Esta seguro de querer borrar la siguiente plantilla: </p>
                                                         <div class="card-body d-flex flex-column p-0">
                                                             <img src="{{ asset('img/logoTamaulipas.png') }}" alt="" class="rounded-3">
-                                                        </div> 
+                                                        </div>
                                                         <p class="mt-4"> Nombre: <strong> {{ $template->name }} </strong></p>
-                                                        <p class="m-0"> Fecha de creación: <strong> {{ $template->created_at }} </strong></p>    
+                                                        <p class="m-0"> Fecha de creación: <strong> {{ $template->created_at }} </strong></p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -93,14 +78,14 @@
                                                     </div>
                                             </div>
                                         </div>
-                                    </div>         
+                                    </div>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
-</div> 
+</div>
 @endsection
