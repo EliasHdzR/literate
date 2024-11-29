@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Documentos') 
+@section('title', 'Documentos')
 
 @section('content')
 <div class="col px-5">
@@ -13,7 +13,7 @@
         <div class="col-md-4 p-0">
             <div class="d-flex p-0 gap-2">
                 <form class="d-flex position-relative w-100" role="search">
-                    <input class="form-control border-secondary px-4 p-2 bg-white border-0 shadow-sm" 
+                    <input class="form-control border-secondary px-4 p-2 bg-white border-0 shadow-sm"
                         type="search" placeholder="Busca algún documento" aria-label="Search">
                     <button class="btn position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent me-2" type="button">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,9 +27,35 @@
         <!-- Botón para agregar documento -->
         <div class="col-2">
             <div class="d-flex align-items-center">
-                <button type="button" onclick="window.location.href='{{ route('documents.create') }}'" class="btn btn-primary text-nowrap p-2 px-4 fw-medium w-100 shadow-sm">
-                    <strong>Agregar Documento +</strong>
-                </button>
+                <a class="btn btn-primary text-nowrap p-2 px-4 fw-medium w-100 shadow-sm" href="#" data-bs-toggle="modal" data-bs-target="#crear-documento">
+                    <strong>Crear Documento</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="crear-documento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Elegir Plantilla</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="">Crear documento a partir de plantilla: </p>
+                    <form id="template-form" action="{{ route('documents.create') }}" method="POST">
+                        @csrf
+                        <select class="form-select" name="template_id" aria-label="Default select example">
+                            <option value="" selected>Sin Plantilla</option>
+                            @foreach ($templates as $template)
+                                <option value="{{ $template->id }}">{{ $template->name }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="template-form" class="btn btn-primary">Crear</button>
+                </div>
             </div>
         </div>
     </div>
@@ -42,7 +68,7 @@
                         <div class="card shadow-sm bg-white border-0 h-100">
                             <div class="card-body d-flex flex-column p-0">
                                 <img src="{{ asset($document->header_logo_url ?? 'img/default-logo.png') }}" alt="Logo del documento" class="rounded-top-3">
-                            </div> 
+                            </div>
                             <div class="card-body d-flex flex-column">
                                 <h1 class="fs-5 fw-bold">{{ $document->name }}</h1>
                                 <small class="fs-6 fw-medium text-truncate">
@@ -81,9 +107,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>         
+                                    </div>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     </div>
                 @endforeach

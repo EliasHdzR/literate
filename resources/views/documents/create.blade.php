@@ -52,7 +52,7 @@
                     <!-- Cuerpo -->
                     <div class="mb-3">
                         <label for="body" class="form-label">Cuerpo del Documento</label>
-                        <textarea name="body" id="body" class="form-control" rows="10" required></textarea>
+                        <textarea name="body" id="body" class="form-control contenido" rows="10" required></textarea>
                     </div>
                     <!-- Despedida -->
                     <div class="mb-3">
@@ -72,7 +72,7 @@
                     <!-- Texto del pie de página -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Texto del Pie de Página</label>
-                        <textarea name="footer_text" id="footer_text" class="form-control" rows="3"></textarea>
+                        <textarea name="footer_text" id="footer_text" class="form-control contenido" rows="3"></textarea>
                     </div>
                     <!-- Logo del pie de página -->
                     <div class="mb-3">
@@ -86,7 +86,7 @@
                     </div>
                     <!-- botones -->
                     <div class="d-flex justify-content-between gap-3">
-                        <button type="button" class="btn btn-light flex-fill border" 
+                        <button type="button" class="btn btn-light flex-fill border"
                             onclick="window.location.href='{{ route('documents.index') }}'">Regresar</button>
                         <button type="submit" class="btn btn-primary flex-fill">Guardar</button>
                     </div>
@@ -95,4 +95,5 @@
         </div>
     </div>
 </div>
+@vite('resources/js/ckeditor.js')
 @endsection

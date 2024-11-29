@@ -22,22 +22,22 @@
                     <!-- lugar -->
                     <div class="mb-3">
                         <label for="place" class="form-label">Lugar</label>
-                        <input type="text" class="form-control bg-white" id="place" name="place" required>
+                        <input type="text" class="form-control bg-white" id="place" name="place">
                     </div>
                     <!-- saludo -->
                     <div class="mb-3">
                         <label for="greeting" class="form-label">Saludo</label>
-                        <input type="text" class="form-control bg-white" id="greeting" name="greeting" required>
+                        <input type="text" class="form-control bg-white" id="greeting" name="greeting">
                     </div>
                     <!-- despedida -->
                     <div class="mb-3">
                         <label for="farewell" class="form-label">Despedida</label>
-                        <input type="text" class="form-control bg-white" id="farewell" name="farewell" required>
+                        <input type="text" class="form-control bg-white" id="farewell" name="farewell">
                     </div>
                      <!-- contenedor de pie de pagina -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Pie de página</label>
-                        <textarea name="footer_text" id="contenido" class="form-control" rows="10"></textarea>
+                        <textarea name="footer_text" id="contenido" class="form-control contenido" rows="10"></textarea>
                     </div>
                     <!-- subir img -->
                     <div class="row mb-3">

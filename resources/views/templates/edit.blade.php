@@ -23,29 +23,30 @@
                     <!-- lugar -->
                     <div class="mb-3">
                         <label for="place" class="form-label">Lugar</label>
-                        <input type="text" class="form-control bg-white" id="place" name="place" value="{{ $template->place }}" required>
+                        <input type="text" class="form-control bg-white" id="place" name="place" value="{{ $template->place }}">
                     </div>
                     <!-- saludo -->
                     <div class="mb-3">
                         <label for="greeting" class="form-label">Saludo</label>
-                        <input type="text" class="form-control bg-white" id="greeting" name="greeting" value="{{ $template->greeting }}" required>
+                        <input type="text" class="form-control bg-white" id="greeting" name="greeting" value="{{ $template->greeting }}">
                     </div>
                     <!-- despedida -->
                     <div class="mb-3">
                         <label for="farewell" class="form-label">Despedida</label>
-                        <input type="text" class="form-control bg-white" id="farewell" name="farewell" value="{{ $template->farewell }}" required>
+                        <input type="text" class="form-control bg-white" id="farewell" name="farewell" value="{{ $template->farewell }}">
                     </div>
                      <!-- contenedor de pie de pagina -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Pie de página</label>
-                        <textarea name="footer_text" id="contenido" class="form-control" rows="10">{{ $template->footer_text }}</textarea>
+                        <textarea name="footer_text" class="form-control contenido" rows="10">{{ $template->footer_text }}</textarea>
                     </div>
+
                     <!-- subir img -->
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="imagen-header" class="form-label">Logo del encabezado</label>
                             <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
-                                <img src="{{ asset('storage/' . $template->header_logo_url) }}" style="width: 6rem;" id="preview-header">
+                                <img src="{{ $template->header_logo_url ? asset('storage/' . $template->header_logo_url) : '' }}" style="width: 6rem;" id="preview-header">
                                 <span class="file-text mt-3" id="file-text-header">
                                     Ningún archivo seleccionado.
                                     <a class="text-primary fw-bold link-underline link-underline-opacity-0" href="#" onclick="document.getElementById('imagen-header').click(); return false;">Subir imagen</a>
@@ -56,7 +57,7 @@
                         <div class="col-md-6">
                             <label for="imagen-footer" class="form-label">Logo de pie de página</label>
                             <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
-                                <img src="{{ asset('storage/' . $template->footer_logo_url) }}" style="width: 6rem;" id="preview-footer">
+                                <img src="{{ $template->footer_logo_url ? asset('storage/' . $template->footer_logo_url) : '' }}" style="width: 6rem;" id="preview-footer">
                                 <span class="file-text mt-3" id="file-text-footer">
                                     Ningún archivo seleccionado.
                                     <a class="text-primary fw-bold link-underline link-underline-opacity-0" href="#" onclick="document.getElementById('imagen-footer').click(); return false;">Subir imagen</a>

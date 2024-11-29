@@ -91,10 +91,12 @@ class TemplateController extends Controller
                 $request->validate([
                     'imagen-header' => ['mimes:png,jpg,jpeg', 'max:2048'],
                 ]);
-                Storage::disk('public')->delete($template->header_logo_url);
+
+                $imageHeader = $template->header_logo_url;
+                if($imageHeader) Storage::disk('public')->delete($template->header_logo_url);
 
                 $image = $request->file('imagen-header');
-                $image_url = $image->store('template_images/', ['disk' => 'public']);
+                $image_url = $image->store('template_images', ['disk' => 'public']);
                 $validated['header_logo_url'] = $image_url;
             }
 
@@ -102,7 +104,9 @@ class TemplateController extends Controller
                 $request->validate([
                     'imagen-footer' => ['mimes:png,jpg,jpeg', 'max:2048'],
                 ]);
-                Storage::disk('public')->delete($template->footer_logo_url);
+
+                $imageFooter = $template->footer_logo_url;
+                if($imageFooter) Storage::disk('public')->delete($template->footer_logo_url);
 
                 $image = $request->file('imagen-footer');
                 $image_url = $image->store('template_images/', ['disk' => 'public']);
@@ -123,8 +127,10 @@ class TemplateController extends Controller
     {
         $imageHeader = $template->header_logo_url;
         $imageFooter = $template->footer_logo_url;
-        Storage::disk('public')->delete($imageHeader);
-        Storage::disk('public')->delete($imageFooter);
+
+        if($imageHeader) Storage::disk('public')->delete($imageHeader);
+        if($imageFooter) Storage::disk('public')->delete($imageFooter);
+
         $template->delete();
         return redirect()->route('templates.index')->with('status', 'El Template ha sido eliminado');
     }
