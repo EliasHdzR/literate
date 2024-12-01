@@ -63,6 +63,18 @@
                                     {{ $document->created_at }}
                                 </small>
                                 <div class="d-flex justify-content-end mt-2">
+                                    <a class="p-2" href="{{ route('documents.export', ['id' => $document->id]) }}">
+                                        <svg width="21" height="21" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_201_23365)">
+                                                <path d="M5.27354 1.48242H1.94149V2.5931H5.27354V1.48242ZM5.55121 3.98146C5.47757 3.98146 5.40694 3.9522 5.35487 3.90013C5.3028 3.84806 5.27354 3.77743 5.27354 3.70379C5.27354 3.63014 5.3028 3.55952 5.35487 3.50744C5.40694 3.45537 5.47757 3.42612 5.55121 3.42612C5.62485 3.42612 5.69548 3.45537 5.74755 3.50744C5.79963 3.55952 5.82888 3.63014 5.82888 3.70379C5.82888 3.77743 5.79963 3.84806 5.74755 3.90013C5.69548 3.9522 5.62485 3.98146 5.55121 3.98146ZM4.7182 5.92515H2.49683V4.5368H4.7182V5.92515ZM5.55121 2.87078H1.66382C1.44289 2.87078 1.23101 2.95854 1.07479 3.11476C0.918574 3.27098 0.830811 3.48286 0.830811 3.70379V5.36981H1.94149V6.48049H5.27354V5.36981H6.38422V3.70379C6.38422 3.48286 6.29646 3.27098 6.14024 3.11476C5.98402 2.95854 5.77214 2.87078 5.55121 2.87078Z" fill="black"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_201_23365">
+                                                    <rect width="6.6641" height="6.6641" fill="white" transform="translate(0.275513 0.649414)"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
                                     <a class="p-2" href="{{ route('documents.edit', ['document' => $document]) }}">
                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9562 17.5358H18" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [DocumentController::class, 'store'])->name('documents.store');
         Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
         Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
+        Route::get('/documents/{id}/export', [DocumentController::class, 'export'])->name('documents.export');
         Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
     });
 

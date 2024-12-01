@@ -6,6 +6,7 @@ use App\Models\Template;
 use Illuminate\Http\Request;
 use App\Models\Document;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DocumentController extends Controller
 {
@@ -96,6 +97,13 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         return view('documents.edit', ['document' => $document]);
+    }
+
+    public function export($id)
+    {
+        $document = Document::findOrFail($id);
+        $pdf = Pdf::loadView('documents.pdf', compact('document'));
+        return $pdf->download('documento.pdf');
     }
 
     public function destroy(Document $document)
