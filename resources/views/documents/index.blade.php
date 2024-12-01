@@ -27,9 +27,9 @@
                 </div>
                 <div class="modal-body">
                     <p class="">Crear documento a partir de plantilla: </p>
-                    <form id="template-form" action="{{ route('documents.create') }}" method="POST">
+                    <form id="template-form" action="{{ route('documents.create') }}" method="GET">
                         @csrf
-                        <select class="form-select" name="template_id" aria-label="Default select example">
+                        <select class="form-select" id="template_select" name="template_id" aria-label="Default select example">
                             <option value="" selected>Sin Plantilla</option>
                             @foreach ($templates as $template)
                                 <option value="{{ $template->id }}">{{ $template->name }}</option>
@@ -52,7 +52,7 @@
                     <div class="col">
                         <div class="card shadow-sm bg-white border-0 h-100">
                             <div class="card-body d-flex flex-column p-0">
-                                <img src="{{ asset($document->header_logo_url ?? 'img/default-logo.png') }}" alt="Logo del documento" class="rounded-top-3">
+                                <img src="{{ asset('storage/'.$document->header_logo_url ?? 'img/default-logo.png') }}" style="width: 6rem;" alt="Logo del documento" class="rounded-top-3">
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h1 class="fs-5 fw-bold">{{ $document->name }}</h1>
@@ -63,6 +63,41 @@
                                     {{ $document->created_at }}
                                 </small>
                                 <div class="d-flex justify-content-end mt-2">
+                                    <!-- boton compartir -->
+                                    <a class="p-2" href="#" data-bs-toggle="modal" data-bs-target="#compartir-documento">
+                                        <svg fill="#000000" width="17px" height="17px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                                            <path d="M28.183 29.668h-26v-20h8.050l2.023-1.948-0.052-0.052h-10.021c-1.105 0-2 0.896-2 2v20c0 1.105 0.895 2 2 2h26c1.105 0 2-0.895 2-2v-15.646l-2 1.909v13.737zM8.442 21.668l2.015-0c1.402-7.953 8.329-14 16.684-14 0.351 0 0.683 0.003 1.019 0.005l-3.664 3.664c-0.39 0.39-0.39 1.024 0 1.414 0.195 0.196 0.452 0.293 0.708 0.293s0.511-0.098 0.706-0.293l5.907-6.063-5.907-6.064c-0.39-0.391-1.023-0.391-1.414 0-0.39 0.391-0.39 1.024 0 1.414l3.631 3.63c-0.314-0-0.624-0.002-0.944-0.002-9.47 0-17.299 6.936-18.741 16.001z"></path> </g>
+                                        </svg>
+                                    </a>
+                                    <!-- modal compartir -->
+                                    <div class="modal fade" id="compartir-documento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Compartir Documento</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="share-form" action="#" method="POST">
+                                                        @csrf
+                                                        <select class="form-select" name="user_id" id="user-select" aria-label="Default select example">
+                                                            <option value="" selected>Elegir Usuario</option>
+                                                            @foreach ($users as $user)
+                                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                                                    <button type="submit" form="share-form" id="btn-compartir" class="btn btn-primary" disabled>Compartir</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- boton editar -->
                                     <a class="p-2" href="{{ route('documents.edit', ['document' => $document]) }}">
                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9562 17.5358H18" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -70,6 +105,8 @@
                                             <path d="M9.68402 5.50073L14.2276 8.99" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                     </a>
+
+                                    <!-- boton eliminar -->
                                     <a class="p-2" href="#" data-bs-toggle="modal" data-bs-target="#eliminar-{{ $document->id }}">
                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16.6041 8.39014C16.6041 8.39014 16.1516 14.0026 15.8891 16.3668C15.7641 17.496 15.0666 18.1576 13.9241 18.1785C11.7499 18.2176 9.57326 18.2201 7.39993 18.1743C6.30076 18.1518 5.61493 17.4818 5.49243 16.3726C5.22826 13.9876 4.77826 8.39014 4.77826 8.39014" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -111,3 +148,18 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userSelect = document.getElementById('user-select');
+        userSelect.selectedIndex = 0;
+        const shareButton = document.getElementById('btn-compartir');
+        shareButton.disabled = true;
+        const templateSelect = document.getElementById('template_select');
+        templateSelect.selectedIndex = 0;
+
+        userSelect.addEventListener('change', function () {
+            shareButton.disabled = !userSelect.value;
+        });
+    });
+</script>

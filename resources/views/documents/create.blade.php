@@ -17,57 +17,90 @@
                     <!-- Nombre -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre del Documento</label>
-                        <input type="text" class="form-control bg-white" id="name" name="name" required>
+                        <input type="text" class="form-control bg-white" id="name" name="name">
+                        @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Folio -->
                     <div class="mb-3">
                         <label for="folio" class="form-label">Folio</label>
-                        <input type="text" class="form-control bg-white" id="folio" name="folio" required>
+                        <input type="text" class="form-control bg-white" id="folio" name="folio">
+                        @error('folio')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Logo del encabezado -->
                     <div class="mb-3">
-                        <label for="header_logo_url" class="form-label">Logo del Encabezado</label>
-                        <input type="file" class="form-control bg-white" id="header_logo_url" name="header_logo_url" accept="image/*">
+                        <label for="header_logo" class="form-label">Logo del Encabezado</label>
+                        <input type="file" class="form-control bg-white" id="header_logo" name="header_logo" accept="image/*">
+                        @error('header_logo')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Lugar -->
                     <div class="mb-3">
                         <label for="place" class="form-label">Lugar</label>
-                        <input type="text" class="form-control bg-white" id="place" name="place" required>
+                        <input type="text" class="form-control bg-white" id="place" name="place">
+                        @error('place')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Nombre del destinatario -->
                     <div class="mb-3">
                         <label for="receiver_name" class="form-label">Nombre del Destinatario</label>
-                        <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name" required>
+                        <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name">
+                        @error('receiver_name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Cargo del destinatario -->
                     <div class="mb-3">
                         <label for="receiver_position" class="form-label">Cargo del Destinatario</label>
-                        <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position" required>
+                        <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position">
+                        @error('receiver_position')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Saludo -->
                     <div class="mb-3">
                         <label for="greeting" class="form-label">Saludo</label>
-                        <input type="text" class="form-control bg-white" id="greeting" name="greeting" required>
+                        <input type="text" class="form-control bg-white" id="greeting" name="greeting">
+                        @error('greeting')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Cuerpo -->
                     <div class="mb-3">
                         <label for="body" class="form-label">Cuerpo del Documento</label>
-                        <textarea name="body" id="body" class="form-control contenido" rows="10" required></textarea>
+                        <textarea name="body" id="body" class="form-control contenido" rows="10"></textarea>
+                        @error('body')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Despedida -->
                     <div class="mb-3">
                         <label for="farewell" class="form-label">Despedida</label>
-                        <input type="text" class="form-control bg-white" id="farewell" name="farewell" required>
+                        <input type="text" class="form-control bg-white" id="farewell" name="farewell">
+                        @error('farewell')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Nombre del emisor -->
                     <div class="mb-3">
                         <label for="issuer_name" class="form-label">Nombre del Emisor</label>
-                        <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name" required>
+                        <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name">
+                        @error('issuer_name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Cargo del emisor -->
                     <div class="mb-3">
                         <label for="issuer_position" class="form-label">Cargo del Emisor</label>
-                        <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position" required>
+                        <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position">
+                        @error('issuer_position')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Texto del pie de página -->
                     <div class="mb-3">
@@ -76,14 +109,12 @@
                     </div>
                     <!-- Logo del pie de página -->
                     <div class="mb-3">
-                        <label for="footer_logo_url" class="form-label">Logo del Pie de Página</label>
-                        <input type="file" class="form-control bg-white" id="footer_logo_url" name="footer_logo_url" accept="image/*">
+                        <label for="footer_logo" class="form-label">Logo del Pie de Página</label>
+                        <input type="file" class="form-control bg-white" id="footer_logo" name="footer_logo" accept="image/*">
                     </div>
-                    <!-- Fecha límite de firma -->
-                    <div class="mb-3">
-                        <label for="signature_limit_date" class="form-label">Fecha Límite de Firma</label>
-                        <input type="date" class="form-control bg-white" id="signature_limit_date" name="signature_limit_date" required>
-                    </div>
+                    @error('footer_logo')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <!-- botones -->
                     <div class="d-flex justify-content-between gap-3">
                         <button type="button" class="btn btn-light flex-fill border"

@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => '/documentos'], function (){
             Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
-            Route::post('/create', [DocumentController::class, 'create'])->name('documents.create');
+            Route::get('/create', [DocumentController::class, 'create'])->name('documents.create');
             Route::post('/', [DocumentController::class, 'store'])->name('documents.store');
             Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
