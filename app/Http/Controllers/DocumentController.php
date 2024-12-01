@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
-use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -13,7 +15,8 @@ class DocumentController extends Controller
     {
         $templates = Template::all();
         $documents = Document::latest()->paginate(10);
-        return view('documents.index', compact('documents', 'templates'));
+        $users = User::where('role', 'user')->orderBy('name')->get();
+        return view('documents.index', compact('documents', 'templates', 'users'));
     }
 
     public function create(Request $request)
@@ -45,15 +48,25 @@ class DocumentController extends Controller
         DB::beginTransaction();
 
         try{
-            $headerLogo = $request->file('imagen-header')
-                ? $request->file('imagen-header')->store('logos', 'public')
-                : $request->input('header-logo-url');
-            $validated['header_logo_url'] = $headerLogo;
+            if($request->hasFile('header_logo')){
+                $request->validate([
+                    'header_logo' => ['mimes:png,jpg,jpeg','max:2048'],
+                ]);
 
-            $footerLogo = $request->file('imagen-footer')
-                ? $request->file('imagen-footer')->store('logos', 'public')
-                : $request->input('footer-logo-url');
-            $validated['footer_logo_url'] = $footerLogo;
+                $image = $request->file('header_logo');
+                $image_url = $image->store('logos', ['disk' => 'public']);
+                $validated['header_logo_url'] = $image_url;
+            }
+
+            if($request->hasFile('footer_logo')){
+                $request->validate([
+                    'footer_logo' => ['mimes:png,jpg,jpeg','max:2048'],
+                ]);
+
+                $image = $request->file('footer_logo');
+                $image_url = $image->store('logos', ['disk' => 'public']);
+                $validated['footer_logo_url'] = $image_url;
+            }
 
             Document::create($validated);
             DB::commit();
@@ -62,35 +75,6 @@ class DocumentController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Ocurrió un error al subir las imágenes ' . $e->getMessage());
         }
-
-        Document::create($validated);
-
-        return redirect()->route('documents.index')->with('success', 'Documento agregado exitosamente');
-    }
-
-    public function update(Request $request, Document $document)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'folio' => 'required',
-            'header_logo_url' => ['sometimes', 'nullable', 'mimes:png,jpg,jpeg', 'max:2048'],
-            'place' => 'required',
-            'receiver_name' => 'required',
-            'receiver_position' => 'required',
-            'greeting' => 'required',
-            'body' => 'required',
-            'farewell' => 'required',
-            'issuer_name' => 'required',
-            'issuer_position' => 'required',
-            'footer_text' => 'required',
-            'footer_logo_url' => ['sometimes', 'nullable', 'mimes:png,jpg,jpeg', 'max:2048'],
-            'signature_limit_date' => 'required|date',
-        ]);
-
-        // Actualiza el documento con los datos validados
-        $document->update($validated);
-
-        return redirect()->route('documents.index')->with('success', 'Documento actualizado exitosamente');
     }
 
     public function edit(Document $document)
@@ -98,8 +82,68 @@ class DocumentController extends Controller
         return view('documents.edit', ['document' => $document]);
     }
 
+    public function update(Request $request, Document $document)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'folio' => 'required|string|max:20',
+            'place' => 'required|string|max:255',
+            'receiver_name' => 'required|string|max:255',
+            'receiver_position' => 'required|string|max:255',
+            'greeting' => 'required|string|max:255',
+            'body' => 'required|string',
+            'farewell' => 'required|string|max:255',
+            'issuer_name' => 'required|string|max:255',
+            'issuer_position' => 'required|string|max:255',
+            'footer_text' => 'nullable|string|max:255',
+        ]);
+
+        DB::beginTransaction();
+
+        try{
+            if($request->hasFile('header_logo')){
+                $request->validate([
+                    'header_logo' => ['mimes:png,jpg,jpeg', 'max:2048'],
+                ]);
+
+                $imageHeader = $document->header_logo_url;
+                if($imageHeader) Storage::disk('public')->delete($document->header_logo_url);
+
+                $image = $request->file('header_logo');
+                $image_url = $image->store('logos', ['disk' => 'public']);
+                $validated['header_logo_url'] = $image_url;
+            }
+
+            if($request->hasFile('footer_logo')){
+                $request->validate([
+                    'footer_logo' => ['mimes:png,jpg,jpeg', 'max:2048'],
+                ]);
+
+                $imageFooter = $document->footer_logo_url;
+                if($imageFooter) Storage::disk('public')->delete($document->footer_logo_url);
+
+                $image = $request->file('footer_logo');
+                $image_url = $image->store('logos', ['disk' => 'public']);
+                $validated['footer_logo_url'] = $image_url;
+            }
+
+            $document->update($validated);
+            DB::commit();
+            return redirect()->route('documents.index')->with('success', 'Documento actualizado exitosamente');
+        } catch (\Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
+        }
+    }
+
     public function destroy(Document $document)
     {
+        $imageHeader = $document->header_logo_url;
+        $imageFooter = $document->footer_logo_url;
+
+        if($imageHeader) Storage::disk('public')->delete($imageHeader);
+        if($imageFooter) Storage::disk('public')->delete($imageFooter);
+
         $document->delete();
         return redirect()->route('documents.index')->with('status', 'el Documento ha sido eliminado');
     }
