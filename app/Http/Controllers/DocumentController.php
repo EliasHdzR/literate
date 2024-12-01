@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
-use Illuminate\Http\Request;
 use App\Models\Document;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
@@ -15,6 +15,7 @@ class DocumentController extends Controller
         $documents = Document::latest()->paginate(10);
         return view('documents.index', compact('documents', 'templates'));
     }
+
 
     public function create(Request $request)
     {
@@ -62,10 +63,6 @@ class DocumentController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Ocurrió un error al subir las imágenes ' . $e->getMessage());
         }
-
-        Document::create($validated);
-
-        return redirect()->route('documents.index')->with('success', 'Documento agregado exitosamente');
     }
 
     public function update(Request $request, Document $document)

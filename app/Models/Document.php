@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Document extends Model
 {
@@ -26,5 +27,9 @@ class Document extends Model
         'footer_text',
         'footer_logo_url',
         'signature_limit_date',
-    ]; 
+    ];
+
+    public function users(): BelongsToMany {
+        return $this->belongsToMany(User::class, 'users_documents', 'document_id', 'user_id');
+    }
 }

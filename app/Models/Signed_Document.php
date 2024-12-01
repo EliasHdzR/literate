@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Signed_Document extends Model
 {
@@ -16,8 +17,8 @@ class Signed_Document extends Model
         'base64',
         'document_id',
     ];
-    
-    public function document(){
+
+    public function document(): BelongsTo {
         return $this->belongsTo(Document::class, 'document_id');
     }
 }
