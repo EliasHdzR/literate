@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('folio');
-            $table->string('header_logo_url');
+            $table->string('header_logo_url')->nullable();
             $table->string('place');
             $table->string('receiver_name');
             $table->string('receiver_position');
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('farewell');
             $table->string('issuer_name');
             $table->string('issuer_position');
-            $table->string('footer_text');
-            $table->string('footer_logo_url');
+            $table->string('footer_text')->nullable();
+            $table->string('footer_logo_url')->nullable();
             $table->date('signature_limit_date')->nullable();
             $table->timestamps();
         });
