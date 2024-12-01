@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Template;
-use App\Http\Controllers\TemplatesController;
+use App\Models\Document;
 use Illuminate\Routing\Controller as BaseController;
 
 
@@ -25,7 +25,8 @@ class DashboardController extends BaseController
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
+        $documents = Document::all();
         $templates = Template::all();
-        return view('dashboard', compact('templates'));
+        return view('dashboard', compact('documents','templates'));
     }
 }

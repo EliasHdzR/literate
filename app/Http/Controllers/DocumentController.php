@@ -43,6 +43,7 @@ class DocumentController extends Controller
             'issuer_name' => 'required|string|max:255',
             'issuer_position' => 'required|string|max:255',
             'footer_text' => 'nullable|string|max:255',
+            'header_logo' => ['required','mimes:png,jpg,jpeg','max:2048'],
         ]);
 
         DB::beginTransaction();
