@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
      */
     Route::middleware([EnsureUserHasRole::class . ':user'])->prefix('/usuario')->group(function () {
         Route::get('/documentos', [UserDocumentController::class, 'index'])->name('user.documents.index');
+        Route::patch('/documentos/{document}/cancelar', [UserDocumentController::class, 'cancelled'])->name('user.documents.cancel');
     });
 });
 

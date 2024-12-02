@@ -13,4 +13,13 @@ class DocumentController extends Controller
         $documents = $user->documents()->orderBy('created_at', 'desc')->get();
         return view('User.documents-index', compact('documents'));
     }
+
+    public function cancelled($id)
+    {
+        $document = auth()->user()->documents()->findOrFail($id);
+        $document->status = 'Cancelado';
+        $document->save();
+
+        return redirect()->route('user.documents.index')->with('status', 'Documento cancelado exitosamente.');
+    }
 }
