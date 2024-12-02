@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Documento</title>
+    <title>Conclusión de Estancia</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -20,6 +20,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
+            border-bottom: 2px solid #ccc;
         }
 
         .header img {
@@ -31,13 +32,11 @@
         }
 
         .content .date {
-            margin-left: 70%;
             text-align: right;
         }
 
-        .recipient {
+        .content .recipient {
             margin-top: 20px;
-            text-align: center;
         }
 
         .content p {
@@ -45,21 +44,20 @@
         }
 
         .footer {
-            position: absolute;
-            bottom: 0;
-            width: 75%;
-            background-color: #fff;  
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-top: 2px solid #ccc;
         }
 
         .footer p {
             font-size: 12px;
             color: #555;
-            margin: 0;
         }
 
         .footer img {
             height: 60px;
-            margin-left: 90%;
         }
 
         .signature-table {
@@ -83,28 +81,31 @@
 
 <body>
     <div class="header">
-        @if ($document->header_logo_url)
-            <img src="{{ public_path('storage/'.$document->header_logo_url) }}" alt="Logo de encabezado">
-        @endif
+        <img src="default-logo.png" alt="Secretaría Académica Logo">
     </div>
 
     <div class="content">
         <div class="date">
-            <p>{{ $document->place }}, a {{ $document->created_at }}</p>
+            <p>Ciudad, Victoria Tamaulipas, a 4 de octubre de 2024</p>
+            <p>Asunto: Conclusión de estancia</p>
         </div>
 
         <div class="recipient">
-            <p><strong>{{ $document->receiver_name}}</strong></p>
-            <p>{{ $document->receiver_position}}</p>
-            <p><strong>{{ $document->greeting}}</strong></p>
+            <p><strong>M.A. OTHON CANO GARZA</strong></p>
+            <p>DIRECTOR DE VINCULACIÓN</p>
+            <p>UNIVERSIDAD POLITÉCNICA DE VICTORIA</p>
+            <p><strong>P R E S E N T E.-</strong></p>
         </div>
 
-        <p>{!! $document->body !!}</p>
+        <p>Por medio de la presente le informo que el <strong>C. ALAN EMANUEL MORALES SALAZAR</strong>, quien se presentó como estudiante de la carrera de Ingeniería en Tecnologías de la Información con matrícula <strong>2230233</strong>, realizó satisfactoriamente su práctica profesional de Estancia II durante el periodo del <strong>02 de septiembre de 2024</strong> al <strong>27 de septiembre del 2024</strong> cumpliendo con un total de <strong>200 horas</strong>, colaborando en el proyecto, “<strong>Sistema de Administración Académica</strong>” en la Coordinación de Sistemas Académicos perteneciente a la Secretaría Académica de la Universidad Autónoma de Tamaulipas.</p>
 
-        <p><strong>{{ $document->farewell }}</strong></p>
-        <p><strong>{{ $document->issuer_name }}</strong></p>
-        <p>{{ $document->issuer_position}}</p>
-        
+        <p>Se extiende la presente a petición del interesado, para los usos y fines que a él convenga.</p>
+
+        <p><strong>ATENTAMENTE</strong></p>
+        <p>“VERDAD, BELLEZA, PROBIDAD”</p>
+
+        <p><strong>DRA. ROSA ISSEL ACOSTA GONZÁLEZ</strong></p>
+        <p>SECRETARIA ACADÉMICA</p>
 
         <table class="signature-table">
             <tr>
@@ -120,22 +121,8 @@
     </div>
 
     <div class="footer">
-        <table style="width:100%">
-            <tr>
-                <th style="width:90%"></th>
-                <th></th>
-            </tr>
-            <tr>
-                <td>
-                    <p>{!! $document->footer_text !!}</p>
-                </td>
-                <td>
-                    @if ($document->footer_logo_url)
-                        <img src="{{ public_path('storage/'.$document->footer_logo_url) }}" alt="Logo de pie de página">
-                    @endif
-                </td>
-            </tr>
-        </table>
+        <p>Matamoros S/N, Zona Centro, Ciudad Victoria C.P. 87000.<br>(834) 318-1819, (834) 318-1800, ext. 1281</p>
+        <img src="default-logo.png" alt="UAT Footer Logo">
     </div>
 </body>
 
