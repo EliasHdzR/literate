@@ -97,6 +97,18 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#comentar-documento-{{ $document->id }}">
+                                                    <svg width="23px" height="23px" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path d="M4.49999 20.25C4.37892 20.2521 4.25915 20.2248 4.1509 20.1705C4.04266 20.1163 3.94916 20.0366 3.87841 19.9383C3.80766 19.8401 3.76175 19.7261 3.74461 19.6063C3.72747 19.4864 3.73961 19.3641 3.77999 19.25L5.37999 14C5.03175 13.0973 4.85539 12.1375 4.85999 11.17C4.8584 10.1057 5.06918 9.0518 5.47999 8.06999C5.88297 7.13047 6.45975 6.27549 7.17999 5.54999C7.90382 4.82306 8.76344 4.24545 9.70999 3.84999C10.6889 3.4344 11.7415 3.22021 12.805 3.22021C13.8685 3.22021 14.9211 3.4344 15.9 3.84999C17.3341 4.46429 18.5573 5.48452 19.4191 6.7851C20.2808 8.08568 20.7434 9.60985 20.75 11.17C20.7437 13.2771 19.9065 15.2966 18.42 16.79C17.6945 17.5102 16.8395 18.087 15.9 18.49C14.0091 19.2819 11.8865 19.3177 9.96999 18.59L4.71999 20.19C4.64977 20.22 4.57574 20.2402 4.49999 20.25ZM12.8 4.74999C11.5334 4.75547 10.2962 5.13143 9.24068 5.83153C8.18519 6.53164 7.35763 7.52528 6.85999 8.68999C6.19883 10.2911 6.19883 12.0889 6.85999 13.69C6.91957 13.8548 6.91957 14.0352 6.85999 14.2L5.62999 18.37L9.77999 17.11C9.94477 17.0504 10.1252 17.0504 10.29 17.11C11.0824 17.439 11.932 17.6083 12.79 17.6083C13.648 17.6083 14.4976 17.439 15.29 17.11C16.0708 16.7813 16.779 16.3018 17.3742 15.6989C17.9693 15.096 18.4397 14.3816 18.7583 13.5967C19.077 12.8118 19.2376 11.9717 19.231 11.1245C19.2244 10.2774 19.0508 9.4399 18.72 8.65999C18.2234 7.50094 17.398 6.51285 16.3459 5.81792C15.2937 5.123 14.0609 4.75171 12.8 4.74999Z" fill="#000000"></path>
+                                                        </g>
+                                                    </svg>
+                                                    Comentar
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a class="dropdown-item" href="{{ route('documents.edit', ['document' => $document]) }}">
                                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M11.9562 17.5358H18" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -195,6 +207,48 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" form="share-form-{{ $document->id }}" id="btn-compartir" class="btn btn-primary">Compartir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- modal comentar -->
+                                <div class="modal fade max-h-[60vh]" id="comentar-documento-{{ $document->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Comentar Documento</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body max-h-[30vh] overflow-y-auto">
+                                                @if($document->comments->isEmpty())
+                                                    <div class="card mb-2">
+                                                        <div class="card-body">
+                                                            <p class="card-text">No hay comentarios</p>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @foreach($document->comments as $comment)
+                                                    <div class="card mb-2">
+                                                        <div class="card-header">
+                                                            <strong>{{ $comment->user->name }} - {{ date('D, d M Y H:i:s', strtotime($comment->created_at)) }}</strong>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p class="card-text">{{ $comment->content }}</p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form id="comment-form-{{ $document->id }}" action="{{ route('documents.comment', $document) }}" method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="comment" class="form-label">Comentario</label>
+                                                        <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                                                    </div>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" id="btn-comentar" class="btn btn-primary">Comentar</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

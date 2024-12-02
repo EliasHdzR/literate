@@ -14,7 +14,7 @@ class DocumentController extends Controller
     public function index()
     {
         $templates = Template::all();
-        $documents = Document::latest()->paginate(10);
+        $documents = Document::with('comments')->latest()->paginate(10);
         $users = User::where('role', 'user')->orderBy('name')->get();
         return view('documents.index', compact('documents', 'templates', 'users'));
     }
@@ -180,4 +180,17 @@ class DocumentController extends Controller
         return redirect()->route('documents.index')->with('success', 'Documento compartido exitosamente.');
     }
 
+    public function commentDocument(Request $request, Document $document)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:255',
+        ]);
+
+        $document->comments()->create([
+            'content' => $request->input('comment'),
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Comentario agregado exitosamente.');
+    }
 }

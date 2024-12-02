@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
             Route::patch('/documents/{document}/updateDate', [DocumentController::class, 'updateDate'])->name('documents.updateDate');
+            Route::post('/documents/{document}/comment', [DocumentController::class, 'commentDocument'])->name('documents.comment');
             Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
         });
     });
