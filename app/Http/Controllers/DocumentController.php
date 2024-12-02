@@ -147,4 +147,36 @@ class DocumentController extends Controller
         $document->delete();
         return redirect()->route('documents.index')->with('status', 'el Documento ha sido eliminado');
     }
+
+    public function updateDate(Request $request, Document $document)
+    {
+        $request->validate([
+            'signature_limit_date' => 'required|date|after_or_equal:today',
+        ]);
+
+        $document->signature_limit_date = $request->input('signature_limit_date');
+        $document->save();
+
+        return redirect()->route('dashboard')->with('success', 'Fecha límite actualizada correctamente.');
+    }
+
+    public function share(Request $request, Document $document)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $user = User::find($request->input('user_id'));
+
+        // Check if the document has already been shared with the user
+        if ($document->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->route('documents.index')->with('error', 'El documento ya ha sido compartido con este usuario.');
+        }
+
+        // Attach the user to the document
+        $document->users()->attach($user);
+
+        return redirect()->route('documents.index')->with('success', 'Documento compartido exitosamente.');
+    }
+
 }

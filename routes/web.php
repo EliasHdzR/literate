@@ -44,8 +44,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('/create', [DocumentController::class, 'create'])->name('documents.create');
             Route::post('/', [DocumentController::class, 'store'])->name('documents.store');
+            Route::post('/documents/{document}/share', [DocumentController::class, 'share'])->name('documents.share');
             Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
+            Route::patch('/documents/{document}/updateDate', [DocumentController::class, 'updateDate'])->name('documents.updateDate');
             Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
         });
     });
