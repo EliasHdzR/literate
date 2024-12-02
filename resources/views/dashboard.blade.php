@@ -30,7 +30,7 @@
                     <div class="col">
                         <div class="card shadow-sm bg-white border-0 h-100">
                             <div class="card-body d-flex flex-column p-0">
-                                <img src="{{ asset('storage/'.$document->header_logo_url ?? 'img/default-logo.png') }}" style="width: 6rem;" alt="Logo del documento" class="rounded-top-3">
+                                <img src="{{ asset('storage/'.$document->header_logo_url ?? 'img/default-logo.png') }}" class="rounded-top-3">
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h1 class="fs-5 fw-bold">{{ $document->name }}</h1>

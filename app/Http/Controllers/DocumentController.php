@@ -158,7 +158,7 @@ class DocumentController extends Controller
         $document->signature_limit_date = $request->input('signature_limit_date');
         $document->save();
 
-        return redirect()->route('dashboard')->with('success', 'Fecha límite actualizada correctamente.');
+        return redirect()->back()->with('success', 'Fecha límite actualizada correctamente.');
     }
 
     public function share(Request $request, Document $document)
