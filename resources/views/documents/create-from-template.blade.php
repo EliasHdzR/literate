@@ -74,38 +74,34 @@
                         <div class="row mb-3">
                             <!-- Logo del encabezado -->
                             <div class="col-md-6">
-                                <label for="imagen-header" class="form-label">Logo del encabezado</label>
+                                <label for="header_logo" class="form-label">Logo del encabezado</label>
                                 <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
                                     <img src="{{ old('header-logo-url') ? asset('storage/'.old('header-logo-url')) : ($template->header_logo_url ? asset('storage/'.$template->header_logo_url) : '') }}" style="width: 6rem;" id="preview-header">
                                     <span class="file-text mt-3" id="file-text-header">
-                                        Ningún archivo seleccionado.
                                         <button type="button" class="text-primary fw-bold link-underline link-underline-opacity-0 btn btn-link p-0" onclick="document.getElementById('imagen-header').click();">
-                                            Subir imagen
                                         </button>
                                     </span>
                                     <input type="file" hidden id="imagen-header" name="imagen-header" accept="image/*" onchange="updateFileName(this, 'file-text-header', 'preview-header', 'header-logo-hidden')">
                                     <!-- Campo oculto para URL actual -->
-                                    <input type="hidden" id="header-logo-hidden" name="header-logo-url" value="{{ old('header-logo-url') ?? ($template->header_logo_url ?? '') }}">
+                                    <input type="hidden" id="header_logo_hidden" name="header_logo" value="{{ old('header-logo-url') ?? ($template->header_logo_url ?? '') }}">
                                 </div>
                             </div>
 
                             <!-- Logo de pie de página -->
                             <div class="col-md-6">
-                                <label for="imagen-footer" class="form-label">Logo de pie de página</label>
+                                <label for="footer_logo" class="form-label">Logo de pie de página</label>
                                 <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
                                     <img src="{{ old('footer-logo-url') ? asset('storage/'.old('footer-logo-url')) : ($template->footer_logo_url ? asset('storage/'.$template->footer_logo_url) : '') }}"
                                          style="width: 6rem;"
                                          id="preview-footer"
                                          alt="Vista previa del logo">
                                     <span class="file-text mt-3" id="file-text-footer">
-                                        Ningún archivo seleccionado.
                                         <button type="button" class="text-primary fw-bold link-underline link-underline-opacity-0 btn btn-link p-0" onclick="document.getElementById('imagen-footer').click();">
-                                            Subir imagen
                                         </button>
                                     </span>
                                     <input type="file" hidden id="imagen-footer" name="imagen-footer" accept="image/*" onchange="updateFileName(this, 'file-text-footer', 'preview-footer', 'footer-logo-hidden')">
                                     <!-- Campo oculto para URL actual -->
-                                    <input type="hidden" id="footer-logo-hidden" name="footer-logo-url" value="{{ old('footer-logo-url') ?? ($template->footer_logo_url ?? '') }}">
+                                    <input type="hidden" id="footer_logo_hidden" name="footer_logo" value="{{ old('footer-logo-url') ?? ($template->footer_logo_url ?? '') }}">
                                 </div>
                             </div>
                         </div>

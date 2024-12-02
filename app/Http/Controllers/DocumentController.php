@@ -43,12 +43,19 @@ class DocumentController extends Controller
             'issuer_name' => 'required|string|max:255',
             'issuer_position' => 'required|string|max:255',
             'footer_text' => 'nullable|string|max:255',
-            'header_logo' => ['required','mimes:png,jpg,jpeg','max:2048'],
         ]);
 
         DB::beginTransaction();
 
         try{
+            if($request['header_logo']){
+                $validated['header_logo_url'] = $request['header_logo'];
+            }
+
+            if($request['footer_logo']){
+                $validated['footer_logo_url'] = $request['footer_logo'];
+            }
+
             if($request->hasFile('header_logo')){
                 $request->validate([
                     'header_logo' => ['mimes:png,jpg,jpeg','max:2048'],
