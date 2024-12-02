@@ -27,6 +27,7 @@ class DashboardController extends BaseController
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
+        $documents = Document::all();
         $templates = Template::all();
         $documents = Document::all();
         $users = User::all();

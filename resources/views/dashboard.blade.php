@@ -23,7 +23,7 @@
                         <button type="button" data-bs-toggle="button" class="btn btn-primary text-nowrap p-1 px-2 me-1 fw-medium" onclick="bloquearSeleccion(this)">DESDE EL PRINCIPIO</button>
                     </div>
                 </div>
-               
+
                 <div class="row row-cols-1 row-cols-md-4 g-4">
                     <!-- Your content here -->
                     @foreach ($documents as $document)
@@ -204,18 +204,18 @@
                     <div class="col" id="botones">
                         <button type="button" data-bs-toggle="button" class="btn btn-primary text-nowrap p-1 px-2 me-1 fw-medium" onclick="bloquearSeleccion(this)">ESTE MES</button>
                         <button type="button" data-bs-toggle="button" class="btn btn-primary text-nowrap p-1 px-2 me-1 fw-medium" onclick="bloquearSeleccion(this)">ESTE AÑO</button>
-                        <button type="button" data-bs-toggle="button" class="btn btn-primary text-nowrap p-1 px-2 me-1 fw-medium" onclick="bloquearSeleccion(this)">DESDE EL PRINCIPIO</button>            
+                        <button type="button" data-bs-toggle="button" class="btn btn-primary text-nowrap p-1 px-2 me-1 fw-medium" onclick="bloquearSeleccion(this)">DESDE EL PRINCIPIO</button>
                     </div>
                 </div>
-               
+
                 <div class="row row-cols-1 row-cols-md-4 g-4">
                     <!-- Your content here -->
                     @foreach ($templates as $template)
                         <div class="col">
                             <div class="card shadow-sm bg-white border-0 h-100">
                                 <div class="card-body d-flex flex-column p-0">
-                                    <img src="{{ asset('img/logoTamaulipas.png') }}" alt="" class="rounded-top-3">
-                                </div> 
+                                    <img src="{{ asset('storage/'.$template->header_logo_url ?? 'img/default-logo.png') }}" alt="" class="rounded-top-3">
+                                </div>
                                 <div class="card-body d-flex flex-column">
                                     <h1 class="fs-5 fw-bold">{{ $template->name }}</h1>
                                     <small class="fs-6 fw-medium text-truncate">
@@ -239,7 +239,7 @@
                                                 <path d="M17.7569 5.69963H3.62518" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M15.0339 5.69974C14.3797 5.69974 13.8164 5.23724 13.688 4.5964L13.4855 3.58307C13.3605 3.11557 12.9372 2.79224 12.4547 2.79224H8.92719C8.44469 2.79224 8.02136 3.11557 7.89636 3.58307L7.69386 4.5964C7.56552 5.23724 7.00219 5.69974 6.34802 5.69974" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                        </a>                              
+                                        </a>
                                         <!-- el modal aka formulario delete item -->
                                         <div class="modal fade" id="eliminar-{{ $template->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
@@ -251,10 +251,10 @@
                                                     <div class="modal-body">
                                                         <p class="">Esta seguro de querer borrar el siguiente item: </p>
                                                         <div class="card-body d-flex flex-column p-0">
-                                                            <img src="{{ asset('img/logoTamaulipas.png') }}" alt="" class="rounded-3">
-                                                        </div> 
+                                                            <img src="{{ asset('storage/'.$template->header_logo_url ?? 'img/default-logo.png') }}" alt="" class="rounded-3">
+                                                        </div>
                                                         <p class="mt-4"> Nombre: <strong> {{ $template->name }} </strong></p>
-                                                        <p class="m-0"> Fecha de creación: <strong> {{ $template->created_at }} </strong></p>    
+                                                        <p class="m-0"> Fecha de creación: <strong> {{ $template->created_at }} </strong></p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -266,9 +266,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>         
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                         </div>
                     @endforeach
