@@ -17,57 +17,90 @@
                         <!-- nombre -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del documento</label>
-                            <input type="text" class="form-control bg-white" id="name" name="name" required>
+                            <input type="text" class="form-control bg-white" id="name" name="name" value="{{ old('name') }}" required>
+                            @error('name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- folio -->
                         <div class="mb-3">
                             <label for="folio" class="form-label">Folio</label>
-                            <input type="text" class="form-control bg-white" id="folio" name="folio" required>
+                            <input type="text" class="form-control bg-white" id="folio" name="folio" value="{{ old('folio') }}" required>
+                            @error('folio')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- lugar -->
                         <div class="mb-3">
                             <label for="place" class="form-label">Lugar</label>
                             <input type="text" class="form-control bg-white" id="place" name="place" value="{{ old('place', $template->place ?? '') }}" required>
+                            @error('place')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- saludo -->
                         <div class="mb-3">
                             <label for="greeting" class="form-label">Saludo</label>
                             <input type="text" class="form-control bg-white" id="greeting" name="greeting" value="{{ old('greeting', $template->greeting ?? '') }}" required>
+                            @error('greeting')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- destinatario nombre -->
                         <div class="mb-3">
                             <label for="receiver_name" class="form-label">Nombre del Destinatario</label>
-                            <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name" required>
+                            <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name" value="{{ old('receiver_name') }}" required>
+                            @error('receiver_name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- destinatario puesto -->
                         <div class="mb-3">
                             <label for="receiver_position" class="form-label">Puesto del Destinatario</label>
-                            <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position" required>
+                            <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position" value="{{ old('receiver_position') }}" required>
+                            @error('receiver_position')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- cuerpo -->
                         <div class="mb-3">
                             <label for="body" class="form-label">Cuerpo</label>
                             <textarea name="body" id="body" class="form-control contenido" rows="10"></textarea>
+                            @error('body')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- despedida -->
                         <div class="mb-3">
                             <label for="farewell" class="form-label">Despedida</label>
                             <input type="text" class="form-control bg-white" id="farewell" name="farewell" value="{{ old('farewell', $template->farewell ?? '') }}" required>
+                            @error('farewell')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- remitente nombre -->
                         <div class="mb-3">
                             <label for="issuer_name" class="form-label">Nombre del Remitente</label>
-                            <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name" required>
+                            <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name" value="{{ old('issuer_name') }}" required>
+                            @error('issuer_name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- remitente puesto -->
                         <div class="mb-3">
                             <label for="issuer_position" class="form-label">Puesto del Remitente</label>
-                            <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position" required>
+                            <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position" value="{{ old('issuer_position') }}" required>
+                            @error('issuer_position')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- pie de página -->
                         <div class="mb-3">
                             <label for="footer_text" class="form-label">Pie de página</label>
                             <textarea name="footer_text" id="footer_text" class="form-control contenido" rows="10">{{ old('footer_text', $template->footer_text ?? '') }}</textarea>
+                            @error('footer_text')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- subir img -->

@@ -17,7 +17,7 @@
                     <!-- Nombre -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre del Documento</label>
-                        <input type="text" class="form-control bg-white" id="name" name="name">
+                        <input type="text" class="form-control bg-white" id="name" name="name" value="{{ old('name') }}">
                         @error('name')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -25,7 +25,7 @@
                     <!-- Folio -->
                     <div class="mb-3">
                         <label for="folio" class="form-label">Folio</label>
-                        <input type="text" class="form-control bg-white" id="folio" name="folio">
+                        <input type="text" class="form-control bg-white" id="folio" name="folio" value="{{ old('folio') }}">
                         @error('folio')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -41,7 +41,7 @@
                     <!-- Lugar -->
                     <div class="mb-3">
                         <label for="place" class="form-label">Lugar</label>
-                        <input type="text" class="form-control bg-white" id="place" name="place">
+                        <input type="text" class="form-control bg-white" id="place" name="place" value="{{ old('place') }}">
                         @error('place')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -49,7 +49,7 @@
                     <!-- Nombre del destinatario -->
                     <div class="mb-3">
                         <label for="receiver_name" class="form-label">Nombre del Destinatario</label>
-                        <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name">
+                        <input type="text" class="form-control bg-white" id="receiver_name" name="receiver_name" value="{{ old('receiver_name') }}">
                         @error('receiver_name')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -57,7 +57,7 @@
                     <!-- Cargo del destinatario -->
                     <div class="mb-3">
                         <label for="receiver_position" class="form-label">Cargo del Destinatario</label>
-                        <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position">
+                        <input type="text" class="form-control bg-white" id="receiver_position" name="receiver_position" value="{{ old('receiver_position') }}">
                         @error('receiver_position')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -65,7 +65,7 @@
                     <!-- Saludo -->
                     <div class="mb-3">
                         <label for="greeting" class="form-label">Saludo</label>
-                        <input type="text" class="form-control bg-white" id="greeting" name="greeting">
+                        <input type="text" class="form-control bg-white" id="greeting" name="greeting" value="{{ old('greeting') }}">
                         @error('greeting')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -73,7 +73,7 @@
                     <!-- Cuerpo -->
                     <div class="mb-3">
                         <label for="body" class="form-label">Cuerpo del Documento</label>
-                        <textarea name="body" id="body" class="form-control contenido" rows="10"></textarea>
+                        <textarea name="body" id="body" class="form-control contenido" rows="10">{{ old('body') }}</textarea>
                         @error('body')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -81,7 +81,7 @@
                     <!-- Despedida -->
                     <div class="mb-3">
                         <label for="farewell" class="form-label">Despedida</label>
-                        <input type="text" class="form-control bg-white" id="farewell" name="farewell">
+                        <input type="text" class="form-control bg-white" id="farewell" name="farewell" value="{{ old('farewell') }}">
                         @error('farewell')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -89,7 +89,7 @@
                     <!-- Nombre del emisor -->
                     <div class="mb-3">
                         <label for="issuer_name" class="form-label">Nombre del Emisor</label>
-                        <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name">
+                        <input type="text" class="form-control bg-white" id="issuer_name" name="issuer_name" value="{{ old('issuer_name') }}">
                         @error('issuer_name')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -97,7 +97,7 @@
                     <!-- Cargo del emisor -->
                     <div class="mb-3">
                         <label for="issuer_position" class="form-label">Cargo del Emisor</label>
-                        <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position">
+                        <input type="text" class="form-control bg-white" id="issuer_position" name="issuer_position" value="{{ old('issuer_position') }}">
                         @error('issuer_position')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -105,7 +105,10 @@
                     <!-- Texto del pie de página -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Texto del Pie de Página</label>
-                        <textarea name="footer_text" id="footer_text" class="form-control contenido" rows="3"></textarea>
+                        <textarea name="footer_text" id="footer_text" class="form-control contenido" rows="3">{{ old('footer_text') }}</textarea>
+                        @error('footer_text')')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- Logo del pie de página -->
                     <div class="mb-3">

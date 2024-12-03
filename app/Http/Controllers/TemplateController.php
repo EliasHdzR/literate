@@ -23,11 +23,13 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'nullable',
-            'place' => 'nullable',
-            'greeting' => 'nullable',
-            'farewell' => 'nullable',
-            'footer_text' => 'nullable',
+            'name' => 'required|string|max:50',
+            'place' => 'required|string|max:30',
+            'greeting' => 'required|string|max:50',
+            'farewell' => 'required|string|max:50',
+            'footer_text' => 'required|string|max:100',
+            'imagen-header' => ['required','mimes:png,jpg,jpeg', 'max:2048'],
+            'imagen-footer' => ['required','mimes:png,jpg,jpeg', 'max:2048'],
         ]);
 
         DB::beginTransaction();

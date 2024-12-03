@@ -14,30 +14,36 @@
                 <!-- formulario -->
                 <form method="POST" action="{{ route('templates.store') }}" class="shadow-sm bg-white p-4 rounded" enctype="multipart/form-data">
                     @csrf
-                    <!-- nombre almacen -->
+                    <!-- nombre plantilla -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre de la plantilla</label>
-                        <input type="text" class="form-control bg-white" id="name" name="name" required>
+                        <input type="text" class="form-control bg-white" id="name" value="{{ old('name') }}" name="name">
+                        @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- lugar -->
                     <div class="mb-3">
                         <label for="place" class="form-label">Lugar</label>
-                        <input type="text" class="form-control bg-white" id="place" name="place">
+                        <input type="text" class="form-control bg-white" id="place" value="{{ old('place') }}" name="place">
                     </div>
                     <!-- saludo -->
                     <div class="mb-3">
                         <label for="greeting" class="form-label">Saludo</label>
-                        <input type="text" class="form-control bg-white" id="greeting" name="greeting">
+                        <input type="text" class="form-control bg-white" id="greeting" value="{{ old('greeting') }}" name="greeting">
                     </div>
                     <!-- despedida -->
                     <div class="mb-3">
                         <label for="farewell" class="form-label">Despedida</label>
-                        <input type="text" class="form-control bg-white" id="farewell" name="farewell">
+                        <input type="text" class="form-control bg-white" id="farewell" value="{{ old('farewell') }}" name="farewell">
                     </div>
                      <!-- contenedor de pie de pagina -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Pie de página</label>
                         <textarea name="footer_text" id="contenido" class="form-control contenido" rows="10"></textarea>
+                        @error('footer_text')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <!-- subir img -->
                     <div class="row mb-3">
@@ -50,8 +56,12 @@
                                     <a class="text-primary fw-bold link-underline link-underline-opacity-0" href="#" onclick="document.getElementById('imagen-header').click(); return false;">Subir imagen</a>
                                 </span>
                                 <input type="file" hidden id="imagen-header" name="imagen-header" accept="image/*" onchange="updateFileName(this, 'file-text-header', 'preview-header')">
+                                @error('imagen-header')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <label for="imagen-footer" class="form-label">Logo de pie de página</label>
                             <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
@@ -61,6 +71,9 @@
                                     <a class="text-primary fw-bold link-underline link-underline-opacity-0" href="#" onclick="document.getElementById('imagen-footer').click(); return false;">Subir imagen</a>
                                 </span>
                                 <input type="file" hidden id="imagen-footer" name="imagen-footer" accept="image/*" onchange="updateFileName(this, 'file-text-footer', 'preview-footer')">
+                                @error('imagen-footer')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

@@ -86,7 +86,7 @@ class DocumentController extends Controller
             return redirect()->route('documents.index')->with('success', 'Documento agregado exitosamente');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Ocurrió un error al subir las imágenes ' . $e->getMessage());
+            return redirect()->back();
         }
     }
 
