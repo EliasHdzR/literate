@@ -10,7 +10,10 @@ class Signed_Document extends Model
 {
     use HasFactory;
 
+    protected $table = 'signed_documents';
+
     protected $fillable = [
+        'document_id',
         'signature_date',
         'original_string',
         'cfdi',

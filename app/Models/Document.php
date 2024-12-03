@@ -30,6 +30,26 @@ class Document extends Model
         'signature_limit_date',
     ];
 
+    public function createOriginalString(){
+        $originalString =  '||' . $this->name . '||' . $this->folio . '||' . $this->place . '||' . $this->receiver_name . '||' . $this->receiver_position;
+        if($this->greeting){
+            $originalString = $originalString . '||' . $this->greeting;
+        }
+
+        $originalString = $originalString . '||' . $this->body;
+        if($this->farewell){
+            $originalString = $originalString . '||' . $this->farewell;   
+        }
+
+        $originalString = $originalString . '||' . $this->issuer_name . '||' . $this->issuer_position;
+        if($this->footer_text){
+            $originalString = $originalString . '||' . $this->footer_text;
+        }
+
+        return $originalString;
+
+    }
+
     public function users(): BelongsToMany {
         return $this->belongsToMany(User::class, 'users_documents', 'document_id', 'user_id');
     }

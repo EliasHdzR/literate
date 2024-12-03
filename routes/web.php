@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
      */
     Route::middleware([EnsureUserHasRole::class . ':user'])->prefix('/usuario')->group(function () {
         Route::get('/documentos', [UserDocumentController::class, 'index'])->name('user.documents.index');
+        Route::post('/{document}/sign', [UserDocumentController::class, 'sign'])->name('documents.sign');
     });
 });
 
