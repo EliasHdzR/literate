@@ -26,7 +26,7 @@ class DashboardController extends BaseController
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $documents = Document::all();
+        $documents = Document::where('status','!=','Cancelado')->get();
         $templates = Template::all();
         $users = User::all();
         return view('dashboard', compact('templates', 'documents', 'users'));
