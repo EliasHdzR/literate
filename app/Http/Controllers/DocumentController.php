@@ -15,7 +15,7 @@ class DocumentController extends Controller
     public function index()
     {
         $templates = Template::all();
-        $documents = Document::latest()->paginate(10);
+        $documents = Document::with('comments')->latest()->paginate(10);
         $users = User::where('role', 'user')->orderBy('name')->get();
         return view('documents.index', compact('documents', 'templates', 'users'));
     }
@@ -49,6 +49,14 @@ class DocumentController extends Controller
         DB::beginTransaction();
 
         try{
+            if($request['header_logo']){
+                $validated['header_logo_url'] = $request['header_logo'];
+            }
+
+            if($request['footer_logo']){
+                $validated['footer_logo_url'] = $request['footer_logo'];
+            }
+
             if($request->hasFile('header_logo')){
                 $request->validate([
                     'header_logo' => ['mimes:png,jpg,jpeg','max:2048'],
@@ -154,5 +162,50 @@ class DocumentController extends Controller
 
         $document->delete();
         return redirect()->route('documents.index')->with('status', 'el Documento ha sido eliminado');
+    }
+
+    public function updateDate(Request $request, Document $document)
+    {
+        $request->validate([
+            'signature_limit_date' => 'required|date|after_or_equal:today',
+        ]);
+
+        $document->signature_limit_date = $request->input('signature_limit_date');
+        $document->save();
+
+        return redirect()->back()->with('success', 'Fecha límite actualizada correctamente.');
+    }
+
+    public function share(Request $request, Document $document)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $user = User::find($request->input('user_id'));
+
+        // Check if the document has already been shared with the user
+        if ($document->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->route('documents.index')->with('error', 'El documento ya ha sido compartido con este usuario.');
+        }
+
+        // Attach the user to the document
+        $document->users()->attach($user);
+
+        return redirect()->route('documents.index')->with('success', 'Documento compartido exitosamente.');
+    }
+
+    public function commentDocument(Request $request, Document $document)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:255',
+        ]);
+
+        $document->comments()->create([
+            'content' => $request->input('comment'),
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Comentario agregado exitosamente.');
     }
 }
