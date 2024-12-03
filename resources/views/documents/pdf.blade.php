@@ -74,9 +74,14 @@
             text-align: center;
         }
 
-        .signature-table .image-cell img {
+        .signature-table {
             max-width: 100%;
             height: auto;
+        }
+
+        .image-cell img {
+            max-width: 100%;
+            width: 60px;
         }
     </style>
 </head>
@@ -112,7 +117,7 @@
             </tr>
             <tr>
                 <td class="image-cell">
-                    <img class="w-8" src="{{ public_path('storage/' . $document->qrCodePath) }}" alt="Código QR">
+                    <img src="{{ public_path('storage/' . $document->qrCodePath) }}" alt="Código QR">
                 </td>
                 <td>{{ $document->signedDocument->cfdi }}</td>
             </tr>
