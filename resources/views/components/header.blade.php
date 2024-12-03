@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg bg-transparent p-0">
         <div class="container-fluid bg-transparent p-0">
             <!-- logo -->
-        <h1><span><a class="navbar-brand fw-bold fs-4" href="#">Literate</a></span></h1>
+        <h1><a class="navbar-brand fw-bold fs-4" href="{{ route('dashboard') }}">Literate</a></h1>
             <!-- boton menu responsivo -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,6 +22,7 @@
                         </div>
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="">Ver perfil</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

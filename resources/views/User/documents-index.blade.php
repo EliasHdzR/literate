@@ -39,8 +39,13 @@
                                         </svg>
                                         {{ $document->signature_limit_date ? 'Fecha Límite Firmado: '.$document->signature_limit_date : 'Sin Fecha Límite' }}
                                     </small>
+                                    <small class="fs-6 fw-medium text-truncate">
+                                        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="18px" height="18px" viewBox="0 0 448 448" id="svg2" version="1.1" inkscape:version="0.91 r13725" sodipodi:docname="status-info-outline.svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title id="title3339">status-info-outline</title> <defs id="defs4"> <pattern y="0" x="0" height="6" width="6" patternUnits="userSpaceOnUse" id="EMFhbasepattern"></pattern> </defs> <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.98994952" inkscape:cx="239.70135" inkscape:cy="220.8132" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="true" units="px" inkscape:snap-bbox="true" inkscape:bbox-nodes="true" inkscape:window-width="1173" inkscape:window-height="914" inkscape:window-x="279" inkscape:window-y="1047" inkscape:window-maximized="0"> <inkscape:grid type="xygrid" id="grid3336" spacingx="16" spacingy="16" empspacing="2"></inkscape:grid> </sodipodi:namedview> <metadata id="metadata7"> <rdf:rdf> <cc:work rdf:about=""> <dc:format>image/svg+xml</dc:format> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:title>status-info-outline</dc:title> </cc:work> </rdf:rdf> </metadata> <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-604.36209)"> <text sodipodi:linespacing="125%" id="text3347" y="628.57739" x="-1063.7494" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none" xml:space="preserve"> <tspan id="tspan3349" y="0" x="0" sodipodi:role="line"> <tspan id="tspan3351" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90px;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';fill:#000000" dy="0" dx="0"></tspan> </tspan> </text> <path id="path3342" style="fill-opacity:1;stroke:none" d="m 264,724.36206 a 40,40.000015 0 0 1 -40,40.00002 40,40.000015 0 0 1 -40,-40.00002 40,40.000015 0 0 1 40,-40.00001 40,40.000015 0 0 1 40,40.00001 z m -72,72 64,0 0,160.00003 -64,0 z m 32,-191.99997 a 224,224 0 0 0 -224,224 224,224 0 0 0 224,224.00001 224,224 0 0 0 224,-224.00001 224,224 0 0 0 -224,-224 z m 0,32 a 192,192 0 0 1 192,192 192,192 0 0 1 -192,192.00001 192,192 0 0 1 -192,-192.00001 192,192 0 0 1 192,-192 z"></path> </g> </g></svg>
+                                        {{ 'Estado: '.$document->status }}
+                                    </small>
                                     <div class="d-flex justify-content-end mt-2">
                                         <!-- Botón del menú desplegable -->
+                                        @if($document->status != 'Cancelado')
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-{{ $document->id }}" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Acciones
@@ -81,6 +86,7 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        @endif
                                     </div>
 
                                     <!-- Modal Firmar -->
@@ -153,16 +159,16 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>¿Estás seguro de que deseas eliminar este documento?</p>
+                                                    <p>¿Estás seguro de que deseas cancelar este documento?</p>
                                                     <p><strong>Nombre:</strong> {{ $document->name }}</p>
                                                     <p><strong>Fecha de creación:</strong> {{ $document->created_at }}</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <form action="{{ route('documents.destroy', $document) }}" method="POST">
+                                                    <form action="{{ route('user.documents.cancel', $document->id) }}" method="POST">
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-primary">Cancelar Documento</button>
                                                     </form>
                                                 </div>
                                             </div>

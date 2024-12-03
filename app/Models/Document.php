@@ -28,6 +28,7 @@ class Document extends Model
         'footer_text',
         'footer_logo_url',
         'signature_limit_date',
+        'status',
     ];
 
     public function createOriginalString(){

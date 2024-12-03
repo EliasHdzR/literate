@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('footer_text')->nullable();
             $table->string('footer_logo_url')->nullable();
             $table->date('signature_limit_date')->nullable();
+            $table->string('status')->default('Pendiente');
             $table->timestamps();
         });
     }

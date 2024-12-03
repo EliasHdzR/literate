@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\Signed_Document;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
@@ -53,5 +52,14 @@ class DocumentController extends Controller
 
         return redirect()->route('user.documents.index');
 
+    }
+
+    public function cancelled($id)
+    {
+        $document = auth()->user()->documents()->findOrFail($id);
+        $document->status = 'Cancelado';
+        $document->save();
+
+        return redirect()->route('user.documents.index')->with('status', 'Documento cancelado exitosamente.');
     }
 }
