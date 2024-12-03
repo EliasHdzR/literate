@@ -12,22 +12,23 @@
             margin: 0;
             padding: 0;
             font-size: 13.5px;
-            line-height: 1.5;
         }
 
         .header {
-            display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
+            margin: 0;
+            height: 10vh;
         }
 
         .header img {
-            height: 60px;
+            margin: 0;
+            height: 150px;
         }
 
         .content {
-            margin: 20px;
+            margin: 10px;
         }
 
         .content .date {
@@ -63,25 +64,24 @@
         }
 
         .signature-table {
-            width: 100%;
+            width: 80%;
             margin-top: 40px;
             border-collapse: collapse;
         }
 
         .signature-table td {
             border: 1px solid #000;
-            padding: 10px;
-            text-align: center;
+            padding: 5px;
+            text-align: left;
+            font-size: 8px;
         }
 
         .signature-table {
-            max-width: 100%;
             height: auto;
         }
 
-        .image-cell img {
-            max-width: 100%;
-            width: 60px;
+        #image-cell img {
+            width: 90px;
         }
     </style>
 </head>
@@ -116,7 +116,7 @@
                 <td colspan="2">Firma Digital</td>
             </tr>
             <tr>
-                <td class="image-cell">
+                <td id="image-cell">
                     <img src="{{ public_path('storage/' . $document->qrCodePath) }}" alt="Código QR">
                 </td>
                 <td>{{ $document->signedDocument->cfdi }}</td>
