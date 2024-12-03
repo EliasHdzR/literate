@@ -47,7 +47,6 @@ Route::middleware('auth')->group(function () {
             Route::post('/documents/{document}/share', [DocumentController::class, 'share'])->name('documents.share');
             Route::get('/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::patch('/{document}', [DocumentController::class, 'update'])->name('documents.update');
-            Route::get('/documents/{id}/export', [DocumentController::class, 'export'])->name('documents.export');
             Route::patch('/documents/{document}/updateDate', [DocumentController::class, 'updateDate'])->name('documents.updateDate');
             Route::post('/documents/{document}/comment', [DocumentController::class, 'commentDocument'])->name('documents.comment');
             Route::delete('/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
@@ -62,6 +61,8 @@ Route::middleware('auth')->group(function () {
         Route::patch('/documentos/{document}/cancelar', [UserDocumentController::class, 'cancelled'])->name('user.documents.cancel');
         Route::post('/{document}/sign', [UserDocumentController::class, 'sign'])->name('documents.sign');
     });
+
+    Route::get('/documents/{id}/export', [DocumentController::class, 'export'])->name('documents.export');
 });
 
 require __DIR__.'/auth.php';

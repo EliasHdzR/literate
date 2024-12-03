@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Document extends Model
 {
@@ -39,7 +40,7 @@ class Document extends Model
 
         $originalString = $originalString . '||' . $this->body;
         if($this->farewell){
-            $originalString = $originalString . '||' . $this->farewell;   
+            $originalString = $originalString . '||' . $this->farewell;
         }
 
         $originalString = $originalString . '||' . $this->issuer_name . '||' . $this->issuer_position;
@@ -57,5 +58,9 @@ class Document extends Model
 
     public function comments(): HasMany {
         return $this->hasMany(Comment::class);
+    }
+
+    public function signedDocument(): HasOne {
+        return $this->hasOne(Signed_Document::class);
     }
 }

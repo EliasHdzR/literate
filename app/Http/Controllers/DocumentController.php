@@ -9,13 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use LaravelQRCode\Facades\QRCode;
 
 class DocumentController extends Controller
 {
     public function index()
     {
         $templates = Template::all();
-        $documents = Document::with('comments')->latest()->paginate(10);
+        $documents = Document::with('comments')
+            ->whereNotIn('status', ['Cancelado'])
+            ->latest()
+            ->paginate(10);
         $users = User::where('role', 'user')->orderBy('name')->get();
         return view('documents.index', compact('documents', 'templates', 'users'));
     }
@@ -33,17 +37,17 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'folio' => 'required|string|max:20',
-            'place' => 'required|string|max:255',
-            'receiver_name' => 'required|string|max:255',
-            'receiver_position' => 'required|string|max:255',
-            'greeting' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
+            'folio' => 'required|string|max:10',
+            'place' => 'required|string|max:30',
+            'receiver_name' => 'required|string|max:50',
+            'receiver_position' => 'required|string|max:80',
+            'greeting' => 'required|string|max:50',
             'body' => 'required|string',
-            'farewell' => 'required|string|max:255',
-            'issuer_name' => 'required|string|max:255',
-            'issuer_position' => 'required|string|max:255',
-            'footer_text' => 'nullable|string|max:255',
+            'farewell' => 'required|string|max:50',
+            'issuer_name' => 'required|string|max:50',
+            'issuer_position' => 'required|string|max:80',
+            'footer_text' => 'nullable|string|max:150',
         ]);
 
         DB::beginTransaction();
@@ -94,17 +98,17 @@ class DocumentController extends Controller
     public function update(Request $request, Document $document)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'folio' => 'required|string|max:20',
-            'place' => 'required|string|max:255',
-            'receiver_name' => 'required|string|max:255',
-            'receiver_position' => 'required|string|max:255',
-            'greeting' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
+            'folio' => 'required|string|max:10',
+            'place' => 'required|string|max:30',
+            'receiver_name' => 'required|string|max:50',
+            'receiver_position' => 'required|string|max:80',
+            'greeting' => 'required|string|max:50',
             'body' => 'required|string',
-            'farewell' => 'required|string|max:255',
-            'issuer_name' => 'required|string|max:255',
-            'issuer_position' => 'required|string|max:255',
-            'footer_text' => 'nullable|string|max:255',
+            'farewell' => 'required|string|max:50',
+            'issuer_name' => 'required|string|max:50',
+            'issuer_position' => 'required|string|max:80',
+            'footer_text' => 'nullable|string|max:150',
         ]);
 
         DB::beginTransaction();
@@ -148,7 +152,17 @@ class DocumentController extends Controller
     public function export($id)
     {
         $document = Document::findOrFail($id);
+        $document->load('signedDocument');
+
+        $filePath = 'logos/' . uniqid() . '.png';
+        QRCode::text($document->signedDocument->cfdi)
+            ->setOutfile(public_path('storage/' . $filePath))
+            ->png();
+        $document->qrCodePath = $filePath;
+
+        $document->signedDocument->cfdi = chunk_split($document->signedDocument->cfdi, 50);
         $pdf = Pdf::loadView('documents.pdf', compact('document'));
+        Storage::delete('storage/'.$filePath);
         return $pdf->download('documento.pdf');
     }
 

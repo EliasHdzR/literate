@@ -50,6 +50,9 @@ class DocumentController extends Controller
             'updated_at' => now()
         ]);
 
+        $document->status = 'Firmado';
+        $document->save();
+
         return redirect()->route('user.documents.index');
 
     }

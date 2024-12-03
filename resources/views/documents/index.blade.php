@@ -73,7 +73,6 @@
                                         {{ 'Estado: '.$document->status }}
                                     </small>
                                 <div class="d-flex justify-content-end mt-2">
-                                    @if($document->status != 'Cancelado')
                                     <!-- Botón del menú desplegable -->
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-{{ $document->id }}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,7 +145,6 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    @endif
                                 </div>
 
                                 <!-- Modal Fecha Límite -->

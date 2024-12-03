@@ -48,7 +48,7 @@
             position: absolute;
             bottom: 0;
             width: 75%;
-            background-color: #fff;  
+            background-color: #fff;
         }
 
         .footer p {
@@ -104,7 +104,7 @@
         <p><strong>{{ $document->farewell }}</strong></p>
         <p><strong>{{ $document->issuer_name }}</strong></p>
         <p>{{ $document->issuer_position}}</p>
-        
+
 
         <table class="signature-table">
             <tr>
@@ -112,9 +112,9 @@
             </tr>
             <tr>
                 <td class="image-cell">
-                    <img src="qr-code.png" alt="QR Code">
+                    <img class="w-8" src="{{ public_path('storage/' . $document->qrCodePath) }}" alt="Código QR">
                 </td>
-                <td></td>
+                <td>{{ $document->signedDocument->cfdi }}</td>
             </tr>
         </table>
     </div>
