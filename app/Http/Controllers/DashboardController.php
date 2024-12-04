@@ -26,9 +26,11 @@ class DashboardController extends BaseController
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $documents = Document::where('status','!=','Cancelado')->get();
+        $documents = Document::with('comments')
+            ->latest()
+            ->paginate(10);
         $templates = Template::all();
-        $users = User::all();
+        $users = User::where('role', 'user')->orderBy('name')->get();
         return view('dashboard', compact('templates', 'documents', 'users'));
     }
 }

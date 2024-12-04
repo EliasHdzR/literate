@@ -14,6 +14,8 @@
                     <!-- formulario -->
                     <form method="POST" action="{{ route('documents.store') }}" class="shadow-sm bg-white p-4 rounded" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" class="form-control bg-white" name="con_plantilla" value="plantilla">
+
                         <!-- nombre -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del documento</label>

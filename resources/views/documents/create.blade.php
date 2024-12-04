@@ -33,7 +33,7 @@
                     <!-- Logo del encabezado -->
                     <div class="mb-3">
                         <label for="header_logo" class="form-label">Logo del Encabezado</label>
-                        <input type="file" class="form-control bg-white" id="header_logo" name="header_logo" accept="image/*">
+                        <input type="file" class="form-control bg-white" id="header_logo" name="header_logo" accept="image/*" required>
                         @error('header_logo')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -113,7 +113,7 @@
                     <!-- Logo del pie de página -->
                     <div class="mb-3">
                         <label for="footer_logo" class="form-label">Logo del Pie de Página</label>
-                        <input type="file" class="form-control bg-white" id="footer_logo" name="footer_logo" accept="image/*">
+                        <input type="file" class="form-control bg-white" id="footer_logo" name="footer_logo" accept="image/*" required>
                     </div>
                     @error('footer_logo')
                     <div class="text-danger">{{ $message }}</div>

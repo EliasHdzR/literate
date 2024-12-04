@@ -48,7 +48,7 @@ class TemplateController extends Controller
                 ]);
 
                 $image = $request->file('imagen-header');
-                $image_url = $image->store('template_images/', ['disk' => 'public']);
+                $image_url = $image->store('template_images', ['disk' => 'public']);
                 $template->header_logo_url = $image_url;
             }
 
@@ -58,7 +58,7 @@ class TemplateController extends Controller
                 ]);
 
                 $image = $request->file('imagen-footer');
-                $image_url = $image->store('template_images/', ['disk' => 'public']);
+                $image_url = $image->store('template_images', ['disk' => 'public']);
                 $template->footer_logo_url = $image_url;
             }
 

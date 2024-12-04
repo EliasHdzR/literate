@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use LaravelQRCode\Facades\QRCode;
@@ -17,7 +18,6 @@ class DocumentController extends Controller
     {
         $templates = Template::all();
         $documents = Document::with('comments')
-            ->whereNotIn('status', ['Cancelado'])
             ->latest()
             ->paginate(10);
         $users = User::where('role', 'user')->orderBy('name')->get();
@@ -52,13 +52,50 @@ class DocumentController extends Controller
 
         DB::beginTransaction();
 
-        try{
-            if($request['header_logo']){
-                $validated['header_logo_url'] = $request['header_logo'];
-            }
 
-            if($request['footer_logo']){
-                $validated['footer_logo_url'] = $request['footer_logo'];
+        try{
+            if ($request['con_plantilla']){
+                if ($request['header_logo']) {
+                    $headerTemplateImagePath = public_path('storage/' . $request['header_logo']);
+
+                    if (file_exists($headerTemplateImagePath)) {
+                        $newImageName = basename($headerTemplateImagePath); // Mantén el nombre del archivo
+                        $newImagePath = public_path('storage/logos/' . $newImageName);
+
+                        if (!file_exists(dirname($newImagePath))) {
+                            mkdir(dirname($newImagePath), 0755, true);
+                        }
+
+                        if (copy($headerTemplateImagePath, $newImagePath)) {
+                            $validated['header_logo_url'] = 'logos/' . $newImageName;
+                        } else {
+                            throw new \Exception('Error al copiar el archivo.');
+                        }
+                    } else {
+                        throw new \Exception('El archivo no existe en la ubicación especificada.');
+                    }
+                }
+
+                if ($request['footer_logo']) {
+                    $footerTemplateImagePath = public_path('storage/' . $request['footer_logo']);
+
+                    if (file_exists($footerTemplateImagePath)) {
+                        $newImageName = basename($footerTemplateImagePath); // Mantén el nombre del archivo
+                        $newImagePath = public_path('storage/logos/' . $newImageName);
+
+                        if (!file_exists(dirname($newImagePath))) {
+                            mkdir(dirname($newImagePath), 0755, true);
+                        }
+
+                        if (copy($footerTemplateImagePath, $newImagePath)) {
+                            $validated['footer_logo_url'] = 'logos/' . $newImageName;
+                        } else {
+                            throw new \Exception('Error al copiar el archivo.');
+                        }
+                    } else {
+                        throw new \Exception('El archivo no existe en la ubicación especificada.');
+                    }
+                }
             }
 
             if($request->hasFile('header_logo')){
@@ -86,6 +123,7 @@ class DocumentController extends Controller
             return redirect()->route('documents.index')->with('success', 'Documento agregado exitosamente');
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             return redirect()->back();
         }
     }
