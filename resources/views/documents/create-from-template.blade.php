@@ -65,7 +65,7 @@
                         <!-- cuerpo -->
                         <div class="mb-3">
                             <label for="body" class="form-label">Cuerpo</label>
-                            <textarea name="body" id="body" class="form-control contenido" rows="10"></textarea>
+                            <textarea name="body" id="body" class="form-control contenido" rows="10">{{ old('body') }}</textarea>
                             @error('body')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -110,10 +110,6 @@
                                 <label for="header_logo" class="form-label">Logo del encabezado</label>
                                 <div class="rounded d-flex flex-column align-items-center justify-content-center border" style="height: 12rem;">
                                     <img src="{{ old('header-logo-url') ? asset('storage/'.old('header-logo-url')) : ($template->header_logo_url ? asset('storage/'.$template->header_logo_url) : '') }}" style="width: 6rem;" id="preview-header">
-                                    <span class="file-text mt-3" id="file-text-header">
-                                        <button type="button" class="text-primary fw-bold link-underline link-underline-opacity-0 btn btn-link p-0" onclick="document.getElementById('imagen-header').click();">
-                                        </button>
-                                    </span>
                                     <input type="file" hidden id="imagen-header" name="imagen-header" accept="image/*" onchange="updateFileName(this, 'file-text-header', 'preview-header', 'header-logo-hidden')">
                                     <!-- Campo oculto para URL actual -->
                                     <input type="hidden" id="header_logo_hidden" name="header_logo" value="{{ old('header-logo-url') ?? ($template->header_logo_url ?? '') }}">
@@ -128,10 +124,6 @@
                                          style="width: 6rem;"
                                          id="preview-footer"
                                          alt="Vista previa del logo">
-                                    <span class="file-text mt-3" id="file-text-footer">
-                                        <button type="button" class="text-primary fw-bold link-underline link-underline-opacity-0 btn btn-link p-0" onclick="document.getElementById('imagen-footer').click();">
-                                        </button>
-                                    </span>
                                     <input type="file" hidden id="imagen-footer" name="imagen-footer" accept="image/*" onchange="updateFileName(this, 'file-text-footer', 'preview-footer', 'footer-logo-hidden')">
                                     <!-- Campo oculto para URL actual -->
                                     <input type="hidden" id="footer_logo_hidden" name="footer_logo" value="{{ old('footer-logo-url') ?? ($template->footer_logo_url ?? '') }}">

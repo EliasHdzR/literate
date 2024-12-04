@@ -21,10 +21,9 @@ class DocumentController extends Controller
     public function sign(Request $request, Document $document){
         $user = auth()->user();
         $user = str_replace(' ', '',$user->name);
-        $validated = $request->validate(
-            [
-                'cer' => 'required',
-                'key' => 'required',
+        $request->validate([
+                'cer' => 'required','mimes:cer',
+                'key' => 'required','mimes:key',
                 'password' => 'required|string|max:255'
             ]
         );
@@ -35,7 +34,9 @@ class DocumentController extends Controller
         $file->storeAs('signs', "private_$now.key", ['disk' => 'public']);
 
         $output = Process::path('storage/signs')->input($request->password . "\n" . "private_$now.key" . "\n" . "public_$now.cer" . "\n" . $now . "\n" . $user . "\n" . $document->createOriginalString())->run('./signserver.sh');
-        //$image_url = $image->store('logos', ['disk' => 'public']);
+        if ($output->exitCode() !== 0) {
+            return redirect()->back()->with('error', 'Error al firmar el documento.');
+        }
 
         $file = file_get_contents('storage/signs/firma_' . $now .'.sig');
         $cfdi = base64_encode($file);
@@ -53,7 +54,7 @@ class DocumentController extends Controller
         $document->status = 'Firmado';
         $document->save();
 
-        return redirect()->route('user.documents.index');
+        return redirect()->route('user.documents.index')->with('success', 'Documento firmado exitosamente.');
 
     }
 

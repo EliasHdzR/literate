@@ -40,7 +40,7 @@
                      <!-- contenedor de pie de pagina -->
                     <div class="mb-3">
                         <label for="footer_text" class="form-label">Pie de página</label>
-                        <textarea name="footer_text" id="contenido" class="form-control contenido" rows="10"></textarea>
+                        <textarea name="footer_text" id="contenido" class="form-control contenido" rows="10">{{ old('footer_text') }}</textarea>
                         @error('footer_text')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror

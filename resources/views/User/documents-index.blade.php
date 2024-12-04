@@ -4,6 +4,17 @@
 
 @section('content')
     <div class="col px-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <!-- Header de la sección -->
         <div class="row align-items-center mb-4">
             <div class="col">
@@ -215,11 +226,10 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5"
-                                                        id="firmarDocumentoLabel-{{ $document->id }}">Firmar
-                                                        Documento</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                    <h1 class="modal-title fs-5" id="firmarDocumentoLabel-{{ $document->id }}">
+                                                        Firmar Documento
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form id="sign-form-{{ $document->id }}"
@@ -227,11 +237,21 @@
                                                           method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <label for="cer">Llave Pública</label>
-                                                        <input type="file" id="cer" name="cer"><br>
+                                                        <input type="file" id="cer" name="cer" accept=".cer" value="" required><br>
+                                                        <div id="cer-error" class="text-danger"></div>
+                                                        @error('cer')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+
                                                         <label for="key">Llave Privada</label>
-                                                        <input type="file" id="key" name="key"><br>
+                                                        <input type="file" id="key" name="key" accept=".key" value="" required><br>
+                                                        <div id="key-error" class="text-danger"></div>
+                                                        @error('key')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+
                                                         <label for="password">Contraseña</label>
-                                                        <input type="password" id="password" name="password">
+                                                        <input type="password" id="password" name="password" required>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
@@ -328,4 +348,26 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('cer').addEventListener('change', function() {
+            validateFile(this, ['cer'], 'cer-error');
+        });
+
+        document.getElementById('key').addEventListener('change', function() {
+            validateFile(this, ['key'], 'key-error');
+        });
+
+        function validateFile(input, validExtensions, errorElementId) {
+            const filePath = input.value;
+            const fileExtension = filePath.split('.').pop().toLowerCase();
+            const errorElement = document.getElementById(errorElementId);
+
+            if (!validExtensions.includes(fileExtension)) {
+                errorElement.innerHTML = 'Formato de archivo no válido. Solo se permiten archivos .' + validExtensions.join(', .');
+                input.value = '';
+            } else {
+                errorElement.innerHTML = '';
+            }
+        }
+    </script>
 @endsection

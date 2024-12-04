@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('signed_documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('document_id');
-            $table->foreign('document_id')->references('id')->on('documents');
+            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
             $table->date('signature_date');
             $table->text('original_string');
             $table->text('cfdi');
